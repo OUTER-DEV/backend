@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  version: 'latest'
+  title: BABYEARN - API
+  description: |
+    An educational tool to develop financial habits
+
+paths:
+  /ping:
+    get:
+      tags:
+        - healthCheck
+      summary: Health check of the server
+      description: Check if the server is up or not
+      operationId: ping
+      responses:
+        '200':
+          description: pong
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Hello world
+        '400':
+          description: Bad request
+        '404':
+          description: Ressource not found
+        '500':
+          description: Server error
+  /user:
+    put:
+      tags:
+        - user
+      summary: Create or update an user
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '404':
+          description: Ressource not found
+        '500':
+          description: Server error
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs child into the system
+      operationId: loginUser
+      parameters:
+        - name: username
+          in: query
+          description: Put the username of your account
+          required: true
+          schema:
+            type: string
+        - name: pin
+          in: query
+          description: The chil's pin code
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Logged in
+        '400':
+          description: Invalid username/pin supplied
+        '404':
+          description: Ressource not found
+        '500':
+          description: Server error
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user
+      operationId: logoutUser
+      parameters: []
+      responses:
+        '200':
+          description: Logging out
+        '400':
+          description: Bad Request
+        '404':
+          description: Ressource not found
+        '500':
+          description: Server error
+  /sold:
+    get:
+      tags:
+        - children
+      summary: Get sold
+      operationId: getSold
+      responses:
+        '200':
+          description: Recipe taken from Database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sold'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Recipe not found
+        '500':
+          description: Server error
+  /transactions/deposit:
+    post:
+      tags:
+        - children
+      summary: Create a new transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                wallet_id:
+                  type: integer
+                amount:
+                  type: number
+                date:
+                  type: string
+                  format: date
+                numero:
+                  type: integer
+
+      responses:
+        '201':
+          description: Transaction created successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
+  /transactions/withdraw:
+    post:
+      tags:
+        - children
+      summary: Create a new transaction withdrawal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                wallet_id:
+                  type: integer
+                amount:
+                  type: number
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: Transaction created successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
+components:
+  schemas:
+    User:
+      allOf:
+        - $ref: '#/components/schemas/CreateUser'
+    CreateUser:
+      type: object
+      properties:
+        username:
+          type: string
+          example: UserOne
+        firstName:
+          type: string
+          example: Rio
+        lastName:
+          type: string
+          example: Camero
+        pin:
+          type: string
+          example: 12345
+
+    Wallet:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: panda wallet
+        number:
+          type: string
+          example: +23489893293
+    Sold:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        value:
+          type: integer
+          example: 12223000
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        user_id:
+          type: integer
+          example: 1
+        wallet_id:
+          type: integer
+          example: 1
+        value:
+          type: integer
+          example: 2300000
+        Date:
+          type: string
+          format: date-time
+        Status:
+          type: string
+          example: in
+    Children:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Pizza
+        user:
+          $ref: '#/components/schemas/User'
+        image:
+          type: string
+        download:
+          type: integer
+          example: 10
