@@ -16,8 +16,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class SavingMapper {
 
-    private final UserRepository userRepository ;
-    public SavingModel toDomain(SavingEntity saving,Long userId){
+    private static UserRepository userRepository ;
+    public static SavingModel toDomain(SavingEntity saving,Long userId){
         User user = userRepository.getById(userId);
         return SavingModel.builder()
                         .date(saving.getLocalDateTime()  == null ? LocalDate.from(LocalDateTime.now()) : saving.getLocalDateTime().toLocalDate())
@@ -26,6 +26,17 @@ public class SavingMapper {
                 .owner(user)
                 .goal(saving.getGoals())
                 .status("TO DO")
+                .build();
+    }
+
+    public SavingEntity toRest(SavingModel savingModel){
+        return SavingEntity.builder()
+                .id(savingModel.getId())
+                .category(savingModel.getCategory())
+                .goals(savingModel.getGoal())
+                .localDateTime(savingModel.getDate().atStartOfDay())
+                .value(savingModel.getValue())
+                .status(savingModel.getStatus())
                 .build();
     }
 
