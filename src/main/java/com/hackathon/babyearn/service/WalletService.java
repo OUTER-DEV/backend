@@ -13,9 +13,10 @@ public class WalletService {
     public Wallet getWalletByUserId(Long userId){
         return walletRepository.findByUserId(userId);
     }
-    public Wallet addNewBalance(Long id,Double value){
+    public Wallet addNewBalance(Long id,Double value,String name){
         Wallet toUpdate = walletRepository.getById(id);
         toUpdate.setBalance(toUpdate.getBalance()+value);
+        toUpdate.setName(name);
         return walletRepository.save(toUpdate);
     }
 

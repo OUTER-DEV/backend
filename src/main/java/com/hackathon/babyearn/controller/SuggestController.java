@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SuggestController {
     private final SuggestService suggestService;
 
-
-
     @GetMapping("/goals/{id}")
     public Suggest getSuggestModel(@PathVariable  Long id){
         return suggestService.suggestFinancialEducation(id);

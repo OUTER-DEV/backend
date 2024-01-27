@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-
+@Table(name = "\"User\"")
 public class User {
 
     @Id
@@ -39,7 +39,7 @@ public class User {
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
     private Wallet wallet;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany
     private List<SavingModel> savingModel;
 
     @OneToOne
