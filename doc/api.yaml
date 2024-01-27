@@ -205,6 +205,29 @@ paths:
           description: Bad request
         '500':
           description: Server error
+
+  /goals/{userid}:
+    get:
+      tags:
+        - children
+      summary: get actual suggest
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Suggest generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Suggest'
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
   /gifts:
     post:
       tags:
@@ -228,7 +251,7 @@ paths:
 
       responses:
         '200':
-          description: Suggest generated
+          description: gift generated
           content:
             application/json:
               schema:
