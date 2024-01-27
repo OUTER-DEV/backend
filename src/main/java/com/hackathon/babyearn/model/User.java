@@ -22,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "\"User\"")
 
 public class User {
 
@@ -46,6 +45,5 @@ public class User {
     @OneToOne
     @JoinColumn(name = "suggest_id", referencedColumnName = "id")
     private Suggest suggest;
-
 
 }
