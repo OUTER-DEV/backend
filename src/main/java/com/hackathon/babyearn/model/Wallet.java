@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +21,8 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @OneToOne
     private User user;
-    private String balance;
+    private double balance;
 }
