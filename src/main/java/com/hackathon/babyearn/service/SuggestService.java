@@ -2,6 +2,7 @@ package com.hackathon.babyearn.service;
 
 
 import com.hackathon.babyearn.model.SavingModel;
+import com.hackathon.babyearn.model.Suggest;
 import com.hackathon.babyearn.model.Transaction;
 import com.hackathon.babyearn.model.Wallet;
 import com.hackathon.babyearn.repository.SuggestRepository;
@@ -20,10 +21,12 @@ public class SuggestService {
     private WalletService walletService;
     private SavingService savingService;
 
-    public String suggestFinancialEducation(Long userId) {
+
+    public Suggest suggestFinancialEducation(Long userId) {
         List<Transaction> transactions = transactionService.getTransactionByUserId(userId);
         Wallet wallet = walletService.getWalletByUserId(userId);
         SavingModel saving = savingService.getSavingByUser_id(userId);
+        Suggest actualSuggest = suggestRepository.findByUser_Id(userId);
 
         StringBuilder suggestion = new StringBuilder("🚀 Suggestion pour toi 🚀 :\n");
 
@@ -35,15 +38,17 @@ public class SuggestService {
         Set<String> excess = HighExpenseCategories(transactions);
         if (highExpenseCategoryCount > 0) {
             suggestion.append("🎉 Wow ! Tu dépenses beaucoup dans certaines choses. Réfléchis à comment économiser pour des choses encore plus cool ! 🎉\n");
-            suggestion.append("tu as depense plus sur : ").append(excess);
+            suggestion.append("tu as depensé beaucoup plus sur : ").append(excess);
         }
 
         Set<SavingModel> getSaving = CompletedGoals(userId);
         if (getSaving.size() > 0) {
             suggestion.append("🌟 Youpi ! Tu as atteint certains de tes objectifs financiers. Continue comme ça et rêve grand ! 🌟\n");
         }
+        actualSuggest.setDescription(suggestion.toString());
 
-        return suggestion.toString();
+        return actualSuggest;
+
     }
 
     private int countHighExpenseCategories(List<Transaction> transactions) {

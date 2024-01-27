@@ -37,5 +37,9 @@ public class User {
     @OneToMany(mappedBy = "User")
     private List<SavingModel> savingModel;
 
+    @OneToOne
+    @JoinColumn(name = "suggest_id", referencedColumnName = "id")
+    private Suggest suggest;
+
 
 }

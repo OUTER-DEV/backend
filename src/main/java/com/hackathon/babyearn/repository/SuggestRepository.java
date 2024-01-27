@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 @Repository
 public interface SuggestRepository extends JpaRepository<Suggest,Long> {
+    Suggest findByUser_Id(Long Id);
 }
