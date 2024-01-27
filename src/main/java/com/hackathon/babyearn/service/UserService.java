@@ -88,4 +88,5 @@ public class UserService {
       throw new IllegalArgumentException("L'authentification a échoué. Vérifiez vos informations d'identification.");
     }
   }
+
 }
