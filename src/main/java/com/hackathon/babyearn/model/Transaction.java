@@ -25,6 +25,6 @@ public class Transaction {
 
     @ManyToOne
     private User user;
-    private Date due_time;
+    private Date dueDatetime;
     private Status status;
 }

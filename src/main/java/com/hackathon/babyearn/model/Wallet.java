@@ -23,5 +23,5 @@ public class Wallet {
 
     @OneToOne
     private User user;
-    private String number;
+    private String balance;
 }
