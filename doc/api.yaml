@@ -173,11 +173,84 @@ paths:
           description: Bad request
         '500':
           description: Server error
+  /goals/suggest:
+    post:
+      tags:
+        - children
+      summary: promote a suggest depending on goals
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                wallet_id:
+                  type: integer
+                amount:
+                  type: number
+                goals:
+                  type: string
+
+      responses:
+        '200':
+          description: Suggest generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Suggest'
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
+  /gifts:
+    post:
+      tags:
+        - children
+      summary: give a gift
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                giftName:
+                  type: string
+                giftDescription:
+                  type: string
+                giftgiver:
+                  type: string
+
+      responses:
+        '200':
+          description: Suggest generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Suggest'
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
 components:
   schemas:
     User:
-      allOf:
-        - $ref: '#/components/schemas/CreateUser'
+      type: object
+      properties:
+        wallet_id:
+          type: integer
+          example: 1
+        saving_account_id:
+          type: integer
+        createuser:
+          allOf:
+            - $ref: '#/components/schemas/CreateUser'
+
     CreateUser:
       type: object
       properties:
@@ -216,6 +289,25 @@ components:
         value:
           type: integer
           example: 12223000
+    Suggest:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        value:
+          type: integer
+          example: 12223000
+        start_date:
+          type: string
+          format: date-time
+        ending_date:
+          type: string
+          format: date-time
+        description:
+          type: string
+        status:
+          type: integer
     Transaction:
       type: object
       properties:
