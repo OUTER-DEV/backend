@@ -28,7 +28,6 @@ public class TransactionMapper {
 
     public Transaction toDomain(TransactionEntity transactionEntity){
         return Transaction.builder()
-                .id(transactionEntity.getId())
                 .user(userRepository.findByUsername(transactionEntity.getUsername()))
                 .Category(transactionEntity.getCategory())
                 .dueDatetime(transactionEntity.getDueDate() == null ? LocalDate.from(LocalDateTime.now()).atStartOfDay() :transactionEntity.getDueDate() )

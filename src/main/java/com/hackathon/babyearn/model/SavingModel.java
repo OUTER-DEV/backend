@@ -27,7 +27,7 @@ public class SavingModel {
     private Double value;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "User_id", referencedColumnName = "id")
     private User owner;
     private LocalDate date;
     private  String category;
