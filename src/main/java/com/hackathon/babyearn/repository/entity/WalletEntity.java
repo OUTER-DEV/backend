@@ -1,0 +1,22 @@
+package com.hackathon.babyearn.repository.entity;
+
+
+import com.hackathon.babyearn.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class WalletEntity {
+    private Long id;
+    private String name;
+    private User owner;
+}
