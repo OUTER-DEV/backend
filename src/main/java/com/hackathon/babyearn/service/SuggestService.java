@@ -4,16 +4,13 @@ package com.hackathon.babyearn.service;
 import com.hackathon.babyearn.model.SavingModel;
 import com.hackathon.babyearn.model.Transaction;
 import com.hackathon.babyearn.model.Wallet;
-import com.hackathon.babyearn.repository.SavingRepository;
 import com.hackathon.babyearn.repository.SuggestRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.SQLRestriction;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -28,7 +25,7 @@ public class SuggestService {
         Wallet wallet = walletService.getWalletByUserId(userId);
         SavingModel saving = savingService.getSavingByUser_id(userId);
 
-        StringBuilder suggestion = new StringBuilder("🚀 Suggestion d'éducation financière pour toi 🚀 :\n");
+        StringBuilder suggestion = new StringBuilder("🚀 Suggestion pour toi 🚀 :\n");
 
         if (wallet.getBalance() > 0) {
             suggestion.append("💰 Super! Tu as de l'argent dans ta tirelire. Pense à mettre une partie dans ton épargne pour de futurs projets excitants ! 💰\n");
@@ -41,8 +38,8 @@ public class SuggestService {
             suggestion.append("tu as depense plus sur : ").append(excess);
         }
 
-        Set<SavingModel> getSaving = CompletedGoals()
-        if (completedGoals > 0) {
+        Set<SavingModel> getSaving = CompletedGoals(userId);
+        if (getSaving.size() > 0) {
             suggestion.append("🌟 Youpi ! Tu as atteint certains de tes objectifs financiers. Continue comme ça et rêve grand ! 🌟\n");
         }
 
@@ -74,8 +71,8 @@ public class SuggestService {
         }
         return highExpenseCategories;
     }
-    private Set<SavingModel> CompletedGoals(Long userId,String status){
-        List<SavingModel> savingModels = savingService.getAllByStatus(status, userId);
+    private Set<SavingModel> CompletedGoals(Long userId){
+        List<SavingModel> savingModels = savingService.getAllByStatus("ACHIEVED", userId);
         return new HashSet<>(savingModels);
 
     }
