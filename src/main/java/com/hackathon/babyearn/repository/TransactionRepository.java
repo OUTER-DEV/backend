@@ -14,4 +14,6 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
     List<Transaction> findAllByDueDatetime(Date Date);
     List<Transaction> findAllByUser_Id(Long id);
+
+    Transaction findByUser_Username(String username);
 }

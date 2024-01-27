@@ -17,11 +17,12 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction {
+public class TransactionEntity {
     private Long id;
     private String username;
-    private String walletRef;
+    private Long walletRef;
     private Double value;
+    private String category;
     private LocalDateTime dueDate;
     private Status status;
 }

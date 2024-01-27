@@ -19,4 +19,5 @@ public class WalletEntity {
     private Long id;
     private String name;
     private User owner;
+    private double balance;
 }

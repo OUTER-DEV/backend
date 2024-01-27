@@ -1,6 +1,5 @@
 package com.hackathon.babyearn.repository.entity;
 
-import com.hackathon.babyearn.model.SavingModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,8 +17,11 @@ import java.util.List;
 @NoArgsConstructor
 public class UserEntity {
     private Long id;
-    private String name;
-    private SavingEntity saving;
-    private List<Transaction> transactions;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private int pin;
+    private List<SavingEntity> saving;
+    private List<TransactionEntity> transactionEntities;
     private WalletEntity wallet;
 }
