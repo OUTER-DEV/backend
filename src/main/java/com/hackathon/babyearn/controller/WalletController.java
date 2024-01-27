@@ -40,7 +40,7 @@ public class WalletController {
   @PostMapping("/wallet/{id}/deposit")
   public ResponseEntity<Wallet> addNewBalance(@PathVariable Long id,
                                               @RequestParam Double value,
-                                              HttpSession session) {\
+                                              HttpSession session) {
     Long authenticatedUserId = (Long) session.getAttribute("userId");
 
     if (authenticatedUserId != null) {
