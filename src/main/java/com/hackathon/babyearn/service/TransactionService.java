@@ -19,7 +19,9 @@ public class TransactionService {
         return transactionRepository.findAllByUser_Id(userId);
     }
 
-    //public List<Transaction> getTransactionByUserId(Long userId, Date start,Date End){
+
+
+    //public List<TransactionEntity> getTransactionByUserId(Long userId, Date start,Date End){
       //  return transactionRepository.findAllByUser_Id(userId);
     //}
 

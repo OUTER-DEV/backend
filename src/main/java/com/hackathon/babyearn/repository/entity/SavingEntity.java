@@ -20,5 +20,6 @@ public class SavingEntity {
     private Double value;
     private LocalDateTime localDateTime;
     private String goals;
+    private String category;
     private String status;
 }
